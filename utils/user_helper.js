@@ -19,8 +19,22 @@ import { detectModerationLabels } from '../services/rekognitionService.js';
 import { normalizeFacetedFilters } from '../services/facetedFilters/normalizeFilters.js';
 import { baseurl } from '../config/path.js';
 
+let serviceAccount;
+try {
+    const serviceAccountPath = new URL('./serviceAccountKey.json', import.meta.url);
+    if (fs.existsSync(serviceAccountPath)) {
+        serviceAccount = JSON.parse(await fs.readFile(serviceAccountPath, 'utf8'));
+    }
+} catch (e) {
+    // serviceAccountKey.json not found or invalid
+}
+
 if (!admin.apps.length) {
-    if (process.env.FIREBASE_PROJECT_ID && process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) {
+    if (serviceAccount) {
+        admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount),
+        });
+    } else if (process.env.FIREBASE_PROJECT_ID && process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY) {
         admin.initializeApp({
             credential: admin.credential.cert({
                 projectId: process.env.FIREBASE_PROJECT_ID,

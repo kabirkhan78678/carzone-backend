@@ -1,4 +1,3 @@
-process.env.AWS_SDK_JS_SUPPRESS_MAINTENANCE_MODE_MESSAGE = '1';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -38,57 +37,25 @@ app.use('/', express.static(path.join(__dirname, 'uploads')));
 app.use('/profile', express.static(path.join(__dirname, 'public/profile')));
 
 
-// Health check endpoints
-app.get('/health', (req, res) => res.status(200).json({ status: 'UP', timestamp: new Date() }));
-app.get('/api/health', (req, res) => res.status(200).json({ status: 'UP', timestamp: new Date() }));
-
 // Use routes
 app.use('/api', route);
 
-// Central Express Error Handler
-app.use((err, req, res, next) => {
-  console.error('❌ [Global Error Handler]:', err.message || err);
-  const status = err.statusCode || err.status || 500;
-  return res.status(status).json({
-    status: status,
-    message: err.message || 'Internal Server Error',
-    data: []
-  });
-});
-
 const port = process.env.PORT || 4000;
 const lang = 'en';
-
 server.listen(port, () => {
-  const localIp = getLocalIP();
-  const isLocalDb = ['localhost', '127.0.0.1'].includes(process.env.DB_HOST || '');
-  const stripeMode = process.env.STRIPE_SECRET_KEY?.startsWith('sk_live_') 
-    ? 'LIVE' 
-    : process.env.STRIPE_SECRET_KEY?.startsWith('sk_test_') 
-      ? 'TEST' 
-      : 'Not Configured';
+  console.log(`${getMessage(lang, 'serverRunning')} http://13.51.226.81:${port}`);
 
-  console.log('\n======================================================');
-  console.log('🚀  CAR ZONE BACKEND SERVER RUNNING');
-  console.log('======================================================');
-  console.log(`🌐 Local URL:      http://localhost:${port}`);
-  console.log(`📡 Network URL:    http://${localIp}:${port}`);
-  if (process.env.APP_URL && !process.env.APP_URL.includes('localhost') && !process.env.APP_URL.includes(localIp)) {
-    console.log(`🔗 Configured URL: ${process.env.APP_URL}`);
-  }
-  console.log('------------------------------------------------------');
-  console.log(`🗄️  Database (MySQL): [${isLocalDb ? 'LOCAL' : 'REMOTE/LIVE'}] ${process.env.DB_HOST}:${process.env.DB_PORT || 3306} (${process.env.DB_DATABASE})`);
-  console.log(`💳 Stripe Mode:     ${stripeMode}`);
-  console.log(`🔥 Firebase:        ${process.env.FIREBASE_PROJECT_ID ? `Active (${process.env.FIREBASE_PROJECT_ID})` : 'Inactive'}`);
-  console.log(`📧 Email / SMTP:    ${process.env.SMTP_HOST || 'Not Configured'} (${process.env.EMAIL_USER || 'N/A'})`);
-  console.log('======================================================\n');
 });
 
-// Process-level crash prevention
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('⚠️ [Unhandled Rejection]:', reason);
-});
-
-process.on('uncaughtException', (error) => {
-  console.error('⚠️ [Uncaught Exception]:', error.message || error);
-});
+// https
+//   .createServer(
+//     {
+//       ca: fs.readFileSync("/var/www/html/ssl/ca_bundle.crt"),
+//       key: fs.readFileSync("/var/www/html/ssl/private.key"),
+//       cert: fs.readFileSync("/var/www/html/ssl/certificate.crt"),
+//     },
+//     app
+//   )
+//   .listen(port, () => {
+//     console.log(`${getMessage(lang, 'serverRunning')} https://13.51.226.81:${port}`);
+//   });

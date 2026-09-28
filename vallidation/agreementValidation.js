@@ -25,7 +25,23 @@ export const createPurchaseAgreementValidation = [
 
   body('seller_dateOfBirth')
     .optional({ nullable: true })
-    .isISO8601().withMessage('seller_dateOfBirth must be a valid date (YYYY-MM-DD).'),
+    .custom((val) => {
+      if (!val) return true;
+      const str = String(val).trim();
+      const ddMatch = str.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+      const yyyyMatch = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!ddMatch && !yyyyMatch) {
+        throw new Error('seller_dateOfBirth must be a valid date (DD-MM-YYYY or YYYY-MM-DD).');
+      }
+      const day = Number(ddMatch ? ddMatch[1] : yyyyMatch[3]);
+      const month = Number(ddMatch ? ddMatch[2] : yyyyMatch[2]);
+      const year = Number(ddMatch ? ddMatch[3] : yyyyMatch[1]);
+      const d = new Date(year, month - 1, day);
+      if (d.getFullYear() !== year || d.getMonth() !== month - 1 || d.getDate() !== day) {
+        throw new Error('seller_dateOfBirth must be a valid date.');
+      }
+      return true;
+    }),
 
   body('seller_fullAddress')
     .optional({ nullable: true })
@@ -420,7 +436,7 @@ export const createPurchaseAgreementJoiSchema = Joi.object({
   // Seller Information
   seller_fullName: Joi.string().allow('', null).optional(),
   seller_company_name: Joi.string().allow('', null).optional(),
-  seller_dateOfBirth: Joi.date().iso().allow(null).optional(),
+  seller_dateOfBirth: Joi.alternatives().try(Joi.date().iso(), Joi.string()).allow(null, '').optional(),
   seller_fullAddress: Joi.string().allow('', null).optional(),
   seller_phoneNumber: Joi.string().allow('', null).optional(),
   seller_countryCode: Joi.string().allow('', null).optional(),

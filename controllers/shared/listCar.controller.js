@@ -244,10 +244,10 @@ export const listCar = async (req, res) => {
             version,
             ...(mergedFirstRegistrationDate ? { first_registration_date: mergedFirstRegistrationDate } : {}),
 
-            fuel_type_id: toNumber(fuel_type_id ?? req.body.fuel_type ?? req.body.fuelType ?? req.body.fuelTypeId),
-            transmission_id: toNumber(transmission_id ?? req.body.transmission ?? req.body.transmissionType ?? req.body.transmissionId),
-            drive_type_id: toNumber(drive_type_id ?? req.body.drive_type ?? req.body.driveType ?? req.body.driveTypeId),
-            body_type_id: toNumber(body_type_id ?? req.body.body_type ?? req.body.bodyType ?? req.body.bodyTypeId ?? req.body.bodytype ?? req.body.bodytype_id ?? req.body.bodyType_id),
+            fuel_type_id: fuel_type_id ? Number(fuel_type_id) : null,
+            transmission_id: transmission_id ? Number(transmission_id) : null,
+            drive_type_id: drive_type_id ? Number(drive_type_id) : null,
+            body_type_id: body_type_id ? Number(body_type_id) : null,
 
             // Phase-2 fields
             carCondition: toNumber(carCondition),

@@ -259,10 +259,10 @@ export const listCarmobile = async (req, res) => {
         setIfPresent(data, "brandName");
         setIfPresent(data, "carModel");
         setIfPresent(data, "version");
-        setIfPresent(data, "fuel_type_id", (v) => (v ? Number(v) : null), "fuel_type", "fuelType", "fuelTypeId");
-        setIfPresent(data, "transmission_id", (v) => (v ? Number(v) : null), "transmission", "transmissionType", "transmissionId");
-        setIfPresent(data, "drive_type_id", (v) => (v ? Number(v) : null), "drive_type", "driveType", "driveTypeId");
-        setIfPresent(data, "body_type_id", (v) => (v ? Number(v) : null), "body_type", "bodyType", "bodyTypeId", "bodytype", "bodytype_id", "bodyType_id");
+        setIfPresent(data, "fuel_type_id", (v) => (v ? Number(v) : null));
+        setIfPresent(data, "transmission_id", (v) => (v ? Number(v) : null));
+        setIfPresent(data, "drive_type_id", (v) => (v ? Number(v) : null));
+        setIfPresent(data, "body_type_id", (v) => (v ? Number(v) : null));
 
         // page 2
         setIfPresent(data, "carCondition", (v) => toNumber(v));

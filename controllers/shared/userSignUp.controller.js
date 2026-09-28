@@ -5,18 +5,26 @@ import { sendEmail } from '../../utils/emailService.js';
 import { hashPassword, sendVerificationEmail, getMessage } from '../../utils/user_helper.js';
 
 export const userSignUp = async (req, res) => {
-    let {
+    const {
         account_type,
         fullName,
         confirm_password,
         companyName,
         companyAddress,
+        fullAddress,
         commercialRegisterNumber,
         city,
         postalCode,
+        pincode,
         businessPhone,
+        businessCountryCode,
+        phoneNumber,
+        phone,
         mobilePhone,
+        countryCode,
         whatsappNumber,
+        whatsappCountryCode,
+        countryCodeWhatsApp,
         email,
         password,
         language
@@ -43,8 +51,18 @@ export const userSignUp = async (req, res) => {
 
         const hash = await hashPassword(password);
 
+        const resolvedPhoneNumber = phoneNumber ?? mobilePhone ?? phone ?? null;
+        const resolvedCountryCode = countryCode ?? null;
+        const resolvedBusinessPhone = businessPhone ?? null;
+        const resolvedBusinessCountryCode = businessCountryCode ?? null;
+        const resolvedWhatsappNumber = whatsappNumber ?? resolvedPhoneNumber ?? null;
+        const resolvedWhatsappCountryCode = whatsappCountryCode ?? countryCodeWhatsApp ?? resolvedCountryCode ?? null;
+        const resolvedAddress = companyAddress ?? fullAddress ?? null;
+        const resolvedPincode = postalCode ?? pincode ?? null;
+        const resolvedCommercialRegisterNumber = commercialRegisterNumber ?? req.body.uid ?? null;
+
         if (account_type === 'private') {
-            if (password !== confirm_password) {
+            if (password !== confirm_password && confirm_password !== undefined) {
                 return handleError(res, 400, getMessage(lang, variableTypes.PASSWORD_DO_NOT_MATCH));
             }
 
@@ -53,6 +71,8 @@ export const userSignUp = async (req, res) => {
                 fullName: (fullName || '').trim(),
                 email,
                 password: hash,
+                phoneNumber: resolvedPhoneNumber,
+                countryCode: resolvedCountryCode,
                 language: lang,
                 code,
                 isVerified: 0,
@@ -78,18 +98,23 @@ export const userSignUp = async (req, res) => {
         if (account_type === 'company') {
             const user = {
                 account_type: 'company',
-                fullName: companyName,
-                companyName,
+                fullName: companyName || fullName || null,
+                companyName: companyName || null,
                 email,
                 password: hash,
                 language: lang,
-                phoneNumber: mobilePhone || null,
-                business_phone: businessPhone || null,
-                whatsappNumber: whatsappNumber || null,
-                companyAddress,
-                city,
-                pincode: postalCode,
-                uid: commercialRegisterNumber || null,
+                phoneNumber: resolvedPhoneNumber,
+                countryCode: resolvedCountryCode,
+                business_phone: resolvedBusinessPhone,
+                businessCountryCode: resolvedBusinessCountryCode,
+                whatsappNumber: resolvedWhatsappNumber,
+                whatsappCountryCode: resolvedWhatsappCountryCode,
+                companyAddress: resolvedAddress,
+                fullAddress: resolvedAddress,
+                city: city || null,
+                pincode: resolvedPincode,
+                commercial_register_number: resolvedCommercialRegisterNumber,
+                uid: resolvedCommercialRegisterNumber,
                 code,
                 isVerified: 0,
                 is_activated: 0,
@@ -107,15 +132,15 @@ export const userSignUp = async (req, res) => {
                 subject: "New Company Registration Submitted",
                 html: `
                     <h3>New company registration submitted</h3>
-                    <p><strong>Company Name:</strong> ${companyName}</p>
-                    <p><strong>Commercial Register Number:</strong> ${commercialRegisterNumber || "N/A"}</p>
-                    <p><strong>Company Address:</strong> ${companyAddress || "N/A"}</p>
-                    <p><strong>City:</strong> ${city}</p>
-                    <p><strong>Postal Code:</strong> ${postalCode}</p>
+                    <p><strong>Company Name:</strong> ${companyName || "N/A"}</p>
+                    <p><strong>Commercial Register Number:</strong> ${resolvedCommercialRegisterNumber || "N/A"}</p>
+                    <p><strong>Company Address:</strong> ${resolvedAddress || "N/A"}</p>
+                    <p><strong>City:</strong> ${city || "N/A"}</p>
+                    <p><strong>Postal Code:</strong> ${resolvedPincode || "N/A"}</p>
                     <p><strong>Email:</strong> ${email}</p>
-                    <p><strong>Business Phone:</strong> ${businessPhone}</p>
-                    <p><strong>Mobile Phone:</strong> ${mobilePhone || "N/A"}</p>
-                    <p><strong>WhatsApp Number:</strong> ${whatsappNumber || "N/A"}</p>
+                    <p><strong>Business Phone:</strong> ${resolvedBusinessCountryCode ? resolvedBusinessCountryCode + ' ' : ''}${resolvedBusinessPhone || "N/A"}</p>
+                    <p><strong>Mobile Phone:</strong> ${resolvedCountryCode ? resolvedCountryCode + ' ' : ''}${resolvedPhoneNumber || "N/A"}</p>
+                    <p><strong>WhatsApp Number:</strong> ${resolvedWhatsappCountryCode ? resolvedWhatsappCountryCode + ' ' : ''}${resolvedWhatsappNumber || "N/A"}</p>
                 `
             });
 

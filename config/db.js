@@ -23,9 +23,9 @@ const pool = mysql.createPool(dbConfig);
 // Verify pool connectivity on startup
 pool.getConnection((err, connection) => {
   if (err) {
-    console.error(`❌ [MySQL] Connection Error to ${dbConfig.host}:${dbConfig.port}/${dbConfig.database} -`, err.message || err);
+    console.error(Msg.dbConnectionError, err);
   } else {
-    console.log(`✅ [MySQL] Connected to database '${dbConfig.database}' on ${dbConfig.host}:${dbConfig.port} (User: ${dbConfig.user})`);
+    console.log(Msg.dbConnectionSuccess);
     connection.release();
   }
 });

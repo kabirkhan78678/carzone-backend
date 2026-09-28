@@ -64,9 +64,9 @@ export const otpRateLimiter = createRateLimiter({
   message: 'Too many OTP requests. Please wait a few minutes before trying again.'
 });
 
-// Rate limiter for general API requests (prevents flooding across all verbs)
-export const generalApiRateLimiter = createRateLimiter({
-  windowMs: 60 * 1000, // 60 seconds
-  max: 1200,          // 1200 requests per minute
-  message: 'Too many API requests. Please wait a moment before trying again.'
+// Rate limiter for GET requests (prevents database flooding and rapid scraping)
+export const getApiRateLimiter = createRateLimiter({
+  windowMs: 60 * 1000, // 60 seconds (1 minute)
+  max: 1000,           // 1000 GET requests per 60s per IP
+  message: 'Too many GET requests. Please wait a moment before trying again.'
 });

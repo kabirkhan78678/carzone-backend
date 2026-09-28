@@ -28,16 +28,16 @@ export const authenticateUser = async (req, res, next) => {
       return handleError(res, 401, getMessage('en', variableTypes.INVALID_TOKEN), []);
 
     }
-    const [user] = await fetchUsersById(decodedToken.data.id);
+    const [user] = await fetchUsersById(decodedToken.data.id)
+    let isUserBlocked = await fetchRoleByUsersId(decodedToken.data.id, decodedToken.data.role);
+
+    if (isUserBlocked.length > 0 && isUserBlocked[0].isBlocked == 1) {
+      return handleError(res, 404, getMessage(user.language, variableTypes.USER_BLOCKED_BY_ADMIN), []);
+    }
+
     if (!user) {
       return handleError(res, 404, getMessage('en', variableTypes.USER_NOT_FOUND), []);
     }
-
-    let isUserBlocked = await fetchRoleByUsersId(decodedToken.data.id, decodedToken.data.role);
-    if (isUserBlocked && isUserBlocked.length > 0 && isUserBlocked[0].isBlocked == 1) {
-      return handleError(res, 403, getMessage(user.language || 'en', variableTypes.USER_BLOCKED_BY_ADMIN), []);
-    }
-
     req.user = user;
     next();
   } catch (error) {

@@ -5,5 +5,8 @@ public
 .env
 .env/
 carzone.zip/
-*.zip
+serviceAccountKey.json
+*serviceAccountKey*.json
 utils/serviceAccountKey.json
+*.pem
+*.key

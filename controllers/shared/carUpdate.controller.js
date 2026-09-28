@@ -312,14 +312,14 @@ export const updateCar = async (req, res) => {
             data.first_registration_date = normalizeMySQLDate(rawCarData.first_registration_date);
         }
 
-        if (rawCarData.fuel_type_id !== undefined || rawCarData.fuel_type !== undefined || rawCarData.fuelType !== undefined || rawCarData.fuelTypeId !== undefined) {
-            data.fuel_type_id = toNumber(rawCarData.fuel_type_id ?? rawCarData.fuel_type ?? rawCarData.fuelType ?? rawCarData.fuelTypeId);
+        if (rawCarData.fuel_type_id !== undefined || rawCarData.fuel_type !== undefined || rawCarData.fuelType !== undefined) {
+            data.fuel_type_id = toNumber(rawCarData.fuel_type_id ?? rawCarData.fuel_type ?? rawCarData.fuelType);
         }
-        if (rawCarData.transmission_id !== undefined || rawCarData.transmission !== undefined || rawCarData.transmissionType !== undefined || rawCarData.transmission_type !== undefined || rawCarData.transmissionId !== undefined) {
-            data.transmission_id = toNumber(rawCarData.transmission_id ?? rawCarData.transmission ?? rawCarData.transmissionType ?? rawCarData.transmission_type ?? rawCarData.transmissionId);
+        if (rawCarData.transmission_id !== undefined || rawCarData.transmission !== undefined) {
+            data.transmission_id = toNumber(rawCarData.transmission_id ?? rawCarData.transmission);
         }
-        if (rawCarData.drive_type_id !== undefined || rawCarData.drive_type !== undefined || rawCarData.driveType !== undefined || rawCarData.driveTypeId !== undefined) {
-            data.drive_type_id = toNumber(rawCarData.drive_type_id ?? rawCarData.drive_type ?? rawCarData.driveType ?? rawCarData.driveTypeId);
+        if (rawCarData.drive_type_id !== undefined || rawCarData.drive_type !== undefined) {
+            data.drive_type_id = toNumber(rawCarData.drive_type_id ?? rawCarData.drive_type);
         }
         if (
             rawCarData.body_type_id !== undefined ||

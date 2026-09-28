@@ -166,6 +166,8 @@ export const asGuestUserGetCar = async (req, res) => {
             powerParts.push(`${car.power_kw} KW`);
         }
 
+        const power = powerParts.length ? powerParts.join(" / ") : null;
+
         // Features & Extras list (features-data)
         const [featureRows, extraRows] = await Promise.all([
             getFeaturesListModel(language),
@@ -194,7 +196,6 @@ export const asGuestUserGetCar = async (req, res) => {
                     count: Number(row.count || 0)
                 }))
         };
-
 
         return res.status(200).json({
             vehicle: buildVehicleDetailPayload(car, openingTimes, mfkInfo),
