@@ -39,6 +39,7 @@ export const authenticateUser = async (req, res, next) => {
       return handleError(res, 404, getMessage('en', variableTypes.USER_NOT_FOUND), []);
     }
     req.user = user;
+    res.locals.language = user.language || 'en';
     next();
   } catch (error) {
     console.log("here", error)
