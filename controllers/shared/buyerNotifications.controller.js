@@ -23,8 +23,9 @@ export const fetchNotificationByBuyersIds = async (req, res) => {
             return handleSuccess(
                 res,
                 200,
-                getMessage(userLanguage, variableTypes.NO_NOTIFICATION_YET),
-                { allNotification: [], unReadNotifications: 0 }
+                getMessage(userLanguage, 'noNotificationYet'),
+                { allNotification: [], unReadNotifications: 0 },
+                userLanguage
             );
         }
 
@@ -477,7 +478,7 @@ export const fetchNotificationByBuyersIds = async (req, res) => {
         return handleSuccess(
             res,
             200,
-            getMessage(userLanguage, variableTypes.NOTIFICATION_LIST_FOUND_SUCCESFULLY),
+            getMessage(userLanguage, 'notificationListFoundSuccessfully'),
             data,
             userLanguage
         );
