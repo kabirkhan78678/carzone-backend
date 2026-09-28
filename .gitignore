@@ -1,0 +1,9 @@
+node_modules
+.node_modules/
+public
+.public/
+.env
+.env/
+carzone.zip/
+*.zip
+utils/serviceAccountKey.json
