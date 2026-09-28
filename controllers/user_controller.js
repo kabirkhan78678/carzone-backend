@@ -1,7 +1,6 @@
 // Auto-aggregated and re-exported shared user controllers for 100% backward compatibility
 export { FALLBACK_MAKES } from '../utils/vehicleMakesData.js';
 export * from './shared/agreementDetails.controller.js';
-export * from './shared/agreementList.controller.js';
 export * from './shared/allCarReels.controller.js';
 export * from './shared/brandModels.controller.js';
 export * from './shared/brandsList.controller.js';
@@ -42,13 +41,9 @@ export * from './shared/priceAnalytics.controller.js';
 export * from './shared/profileReelsFetchDelete.controller.js';
 export * from './shared/profileReelsUpload.controller.js';
 export * from './shared/purchaseAgreementAdd.controller.js';
-export * from './shared/purchaseAgreementCancel.controller.js';
-export * from './shared/purchaseAgreementCounter.controller.js';
 export * from './shared/purchaseAgreementCreate.controller.js';
 export * from './shared/purchaseAgreementDelete.controller.js';
 export * from './shared/purchaseAgreementPdf.controller.js';
-export * from './shared/purchaseAgreementReject.controller.js';
-export * from './shared/purchaseAgreementSign.controller.js';
 export * from './shared/purchaseAgreementUpdate.controller.js';
 export * from './shared/purchaseAgreementWarrantyTypes.controller.js';
 export * from './shared/recentlyViewedInquiry.controller.js';

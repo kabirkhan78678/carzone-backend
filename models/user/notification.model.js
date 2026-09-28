@@ -53,7 +53,7 @@ export const readAllNotificationsModel = async (userId) => {
 };
 
 export const readAllNotificationsModelByIdModel = async (notificationId) => {
-    return db.query("UPDATE tbl_notification SET isRead = 1 WHERE sendTo = ?", [notificationId]);
+    return db.query("UPDATE tbl_notification SET isRead = 1 WHERE id = ?", [notificationId]);
 };
 
 export const removeAllNotificationByCurrentUserId = async (id) => {

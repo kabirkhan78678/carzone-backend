@@ -61,8 +61,24 @@ export const changeNotificationStatusValidation = [
 
 export const changeLanguageValidation = [
   body('language')
-    .notEmpty().withMessage('Language is required.')
-    .isIn(['en', 'fr', 'de', 'it']).withMessage('Unsupported language.')
+    .optional({ nullable: true })
+    .customSanitizer(val => typeof val === 'string' ? val.toLowerCase() : val)
+    .isIn(['en', 'fr', 'de', 'it']).withMessage('Unsupported language.'),
+  body('lang')
+    .optional({ nullable: true })
+    .customSanitizer(val => typeof val === 'string' ? val.toLowerCase() : val)
+    .isIn(['en', 'fr', 'de', 'it']).withMessage('Unsupported language.'),
+  body().custom((value, { req }) => {
+    const lang = req.body?.language || req.body?.lang || req.query?.language || req.query?.lang;
+    if (!lang) {
+      throw new Error('Language is required.');
+    }
+    const cleanLang = String(lang).toLowerCase();
+    if (!['en', 'fr', 'de', 'it'].includes(cleanLang)) {
+      throw new Error('Unsupported language. Supported languages are: en, de, fr, it.');
+    }
+    return true;
+  })
 ];
 
 export const updateBuyerToSellerValidation = [

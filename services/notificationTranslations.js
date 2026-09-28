@@ -118,6 +118,21 @@ export const notificationTranslations = {
         PURCHASE_AGREEMENT_REJECTED: "Purchase Agreement Rejected",
         PURCHASE_AGREEMENT_REJECTED_BODY: ({ name, car }) =>
             `${name} has rejected the purchase agreement for your ${car} car.`,
+
+        SLOT_REQUEST_APPROVED: "Slot Request Approved!",
+        SLOT_REQUEST_APPROVED_BODY: ({ slots, price }) =>
+            slots && price
+                ? `Your request for ${slots} slots has been approved at a price of ${price}. Tap to view your new custom plan!`
+                : "Your slot request has been approved! Tap to view your new custom plan.",
+
+        SLOT_REQUEST_REJECTED: "Slot Request Rejected",
+        SLOT_REQUEST_REJECTED_BODY: "Your slot request has been rejected. Please choose another available slot.",
+
+        SELLER_APPROVED: ({ fullName }) => `${fullName || "Seller"} Approved`,
+        SELLER_APPROVED_BODY: ({ fullName }) => `Congratulations${fullName ? ', ' + fullName : ''}! Your account has been approved as a seller.`,
+
+        SELLER_REJECTED: "Seller Application Declined",
+        SELLER_REJECTED_BODY: ({ fullName }) => `Sorry${fullName ? ', ' + fullName : ''}, your application to become a seller was not approved.`,
     },
 
     de: {
@@ -234,6 +249,21 @@ export const notificationTranslations = {
         PURCHASE_AGREEMENT_REJECTED: "Kaufvertrag abgelehnt",
         PURCHASE_AGREEMENT_REJECTED_BODY: ({ name, car }) =>
             `${name} hat den Kaufvertrag für Ihr Fahrzeug ${car} abgelehnt.`,
+
+        SLOT_REQUEST_APPROVED: "Slot-Anfrage genehmigt!",
+        SLOT_REQUEST_APPROVED_BODY: ({ slots, price }) =>
+            slots && price
+                ? `Ihre Anfrage für ${slots} Slots zum Preis von ${price} wurde genehmigt. Tippen Sie hier, um Ihren neuen individuellen Plan anzuzeigen!`
+                : "Ihre Slot-Anfrage wurde genehmigt! Tippen Sie hier, um Ihren neuen Plan anzuzeigen.",
+
+        SLOT_REQUEST_REJECTED: "Slot-Anfrage abgelehnt",
+        SLOT_REQUEST_REJECTED_BODY: "Ihre Slot-Anfrage wurde abgelehnt. Bitte wählen Sie einen anderen verfügbaren Slot.",
+
+        SELLER_APPROVED: ({ fullName }) => `${fullName || "Verkäufer"} Genehmigt`,
+        SELLER_APPROVED_BODY: ({ fullName }) => `Herzlichen Glückwunsch${fullName ? ', ' + fullName : ''}! Ihr Konto wurde als Verkäufer genehmigt.`,
+
+        SELLER_REJECTED: "Verkäuferantrag abgelehnt",
+        SELLER_REJECTED_BODY: ({ fullName }) => `Entschuldigung${fullName ? ', ' + fullName : ''}, Ihr Antrag als Verkäufer wurde leider nicht genehmigt.`,
     },
 
     fr: {
@@ -350,6 +380,21 @@ export const notificationTranslations = {
         PURCHASE_AGREEMENT_REJECTED: "Contrat d'achat refusé",
         PURCHASE_AGREEMENT_REJECTED_BODY: ({ name, car }) =>
             `${name} a refusé le contrat d'achat pour votre véhicule ${car}.`,
+
+        SLOT_REQUEST_APPROVED: "Demande d'emplacements approuvée !",
+        SLOT_REQUEST_APPROVED_BODY: ({ slots, price }) =>
+            slots && price
+                ? `Votre demande de ${slots} emplacements au prix de ${price} a été approuvée. Appuyez pour voir votre nouveau plan personnalisé !`
+                : "Votre demande d'emplacements a été approuvée ! Appuyez pour voir votre nouveau plan.",
+
+        SLOT_REQUEST_REJECTED: "Demande d'emplacements refusée",
+        SLOT_REQUEST_REJECTED_BODY: "Votre demande d'emplacements a été refusée. Veuillez choisir un autre emplacement disponible.",
+
+        SELLER_APPROVED: ({ fullName }) => `${fullName || "Vendeur"} Approuvé`,
+        SELLER_APPROVED_BODY: ({ fullName }) => `Félicitations${fullName ? ', ' + fullName : ''} ! Votre compte vendeur a été approuvé.`,
+
+        SELLER_REJECTED: "Candidature vendeur refusée",
+        SELLER_REJECTED_BODY: ({ fullName }) => `Désolé${fullName ? ', ' + fullName : ''}, votre candidature vendeur n'a pas été approuvée.`,
     },
 
     it: {
@@ -466,6 +511,21 @@ export const notificationTranslations = {
         PURCHASE_AGREEMENT_REJECTED: "Contratto di acquisto rifiutato",
         PURCHASE_AGREEMENT_REJECTED_BODY: ({ name, car }) =>
             `${name} ha rifiutato il contratto di acquisto per il tuo veicolo ${car}.`,
+
+        SLOT_REQUEST_APPROVED: "Richiesta slot approvata!",
+        SLOT_REQUEST_APPROVED_BODY: ({ slots, price }) =>
+            slots && price
+                ? `La tua richiesta di ${slots} slot al prezzo di ${price} è stata approvata. Tocca per visualizzare il tuo nuovo piano personalizzato!`
+                : "La tua richiesta di slot è stata approvata! Tocca per visualizzare il tuo nuovo piano.",
+
+        SLOT_REQUEST_REJECTED: "Richiesta slot rifiutata",
+        SLOT_REQUEST_REJECTED_BODY: "La tua richiesta di slot è stata rifiutata. Si prega di scegliere un altro slot disponibile.",
+
+        SELLER_APPROVED: ({ fullName }) => `${fullName || "Venditore"} Approvato`,
+        SELLER_APPROVED_BODY: ({ fullName }) => `Congratulazioni${fullName ? ', ' + fullName : ''}! Il tuo account venditore è stato approvato.`,
+
+        SELLER_REJECTED: "Candidatura venditore rifiutata",
+        SELLER_REJECTED_BODY: ({ fullName }) => `Spiacenti${fullName ? ', ' + fullName : ''}, la tua candidatura come venditore non è stata approvata.`,
     }
 };
 

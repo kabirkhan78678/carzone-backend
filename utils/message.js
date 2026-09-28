@@ -1779,6 +1779,30 @@ const messages = {
         de: "Abonnementpräferenz muss MONTHLY oder ANNUAL sein.",
         fr: "La préférence d'abonnement doit être MONTHLY ou ANNUAL.",
         it: "La preferenza di abbonamento deve essere MONTHLY o ANNUAL."
+    },
+    allNotificationsCleared: {
+        en: "All notifications cleared successfully.",
+        de: "Alle Benachrichtigungen wurden erfolgreich gelöscht.",
+        fr: "Toutes les notifications ont été effacées avec succès.",
+        it: "Tutte le notifiche sono state cancellate con successo."
+    },
+    notificationsMarkedAsRead: {
+        en: "Notifications marked as read successfully.",
+        de: "Benachrichtigungen erfolgreich als gelesen markiert.",
+        fr: "Notifications marquées comme lues avec succès.",
+        it: "Notifiche contrassegnate come lette con successo."
+    },
+    notificationListFoundSuccessfully: {
+        en: "Notification list retrieved successfully.",
+        de: "Benachrichtigungsliste erfolgreich abgerufen.",
+        fr: "Liste des notifications récupérée avec succès.",
+        it: "Elenco notifiche recuperato con successo."
+    },
+    noNotificationYet: {
+        en: "No notifications yet.",
+        de: "Noch keine Benachrichtigungen.",
+        fr: "Aucune notification pour le moment.",
+        it: "Nessuna notifica per il momento."
     }
 };
 

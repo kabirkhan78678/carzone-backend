@@ -58,10 +58,6 @@ import {
   addPurchaseAgreementValidation,
   updatePurchaseAgreementValidation,
   deletePurchaseAgreementValidation,
-  counterAgreementValidation,
-  signAgreementValidation,
-  cancelAgreementValidation,
-  rejectAgreementValidation,
   agreementIdValidation,
   submitAppFeedbackValidation,
   submitHelpRequestValidation,
@@ -115,8 +111,9 @@ app.post('/resetPassword', authRateLimiter, resetPasswordValidation, handleValid
 app.get('/getUserProfile', authenticateUser, controller.userController.getUserProfile);
 app.post('/editProfile', authenticateUser, uploadProfile.any(), editProfileValidation, handleValidationErrors, controller.userController.editProfile);
 app.post('/changeMode', authenticateUser, changeModeValidation, handleValidationErrors, controller.userController.changeMode);
-app.post('/notificationStatus', authenticateUser, changeNotificationStatusValidation, handleValidationErrors, controller.userController.changeNotificationStatus);
-app.post('/changeLanguage', authenticateUser, changeLanguageValidation, handleValidationErrors, controller.userController.changeLanguage);
+app.post('/changeLanguage', authenticateUser, uploadProfile.none(), changeLanguageValidation, handleValidationErrors, controller.userController.changeLanguage);
+app.put('/changeLanguage', authenticateUser, uploadProfile.none(), changeLanguageValidation, handleValidationErrors, controller.userController.changeLanguage);
+app.patch('/changeLanguage', authenticateUser, uploadProfile.none(), changeLanguageValidation, handleValidationErrors, controller.userController.changeLanguage);
 app.post('/updateBuyerToSeller', authenticateUser, updateBuyerToSellerValidation, handleValidationErrors, controller.userController.updateBuyerToSeller);
 app.post('/find-vehicle-by-vrn', authenticateUser, vrnValidation, handleValidationErrors, controller.userController.findVehicleByVRN);
 
@@ -269,7 +266,6 @@ app.get('/my-sent-visit-requests', authenticateUser, controller.userController.g
 app.post('/schedule-requests/:id/reschedule', authenticateUser, rescheduleRequestActionValidation, handleValidationErrors, controller.userController.reschedulePhysicalVisit);
 
 app.post('/purchase-agreement', authenticateUser, addPurchaseAgreementValidation, handleValidationErrors, controller.userController.addPurchaseAgreement);
-app.get('/get-purchase-agreements', authenticateUser, controller.userController.getPurchaseAgreements);
 
 app.post('/help-support', authenticateUser, addHelpSupportValidation, handleValidationErrors, controller.userController.addHelpSupport);
 app.get('/help-support/my-tickets', authenticateUser, controller.userController.getMySupportTickets);
@@ -282,11 +278,6 @@ app.get('/mfk-warranty', controller.userController.getMfkWarrantyCounts);
 app.get('/cars/warranty/:carId', authenticateUser, carIdParamValidation, handleValidationErrors, controller.userController.getWarrantyDetails);
 app.post('/chat/notification', chatNotificationValidation, handleValidationErrors, controller.userController.sendChatNotificationController);
 app.post('/vehicles/:vehicleId/purchase-agreement', authenticateUser, createPurchaseAgreementValidation, handleValidationErrors, controller.userController.createPurchaseAgreement);
-app.patch('/purchase-agreements/:id/counter', authenticateUser, counterAgreementValidation, handleValidationErrors, controller.userController.counterPurchaseAgreement);
-app.patch('/purchase-agreements/:id/sign', authenticateUser, uploadProfile.fields(fieldsConfig), signAgreementValidation, handleValidationErrors, controller.userController.signPurchaseAgreement);
-app.patch('/purchase-agreements/:id/cancel', authenticateUser, cancelAgreementValidation, handleValidationErrors, controller.userController.cancelPurchaseAgreement);
-app.patch('/purchase-agreements/:id/reject', authenticateUser, rejectAgreementValidation, handleValidationErrors, controller.userController.rejectPurchaseAgreement);
-app.get('/purchase-agreements', authenticateUser, controller.userController.getPurchaseAgreements);
 app.get('/purchase-agreements/:id', authenticateUser, agreementIdValidation, handleValidationErrors, controller.userController.getPurchaseAgreementThroughId);
 app.put('/purchase-agreements/:id', authenticateUser, updatePurchaseAgreementValidation, handleValidationErrors, controller.userController.updatePurchaseAgreement);
 app.delete('/purchase-agreements/:id', authenticateUser, deletePurchaseAgreementValidation, handleValidationErrors, controller.userController.deletePurchaseAgreement);

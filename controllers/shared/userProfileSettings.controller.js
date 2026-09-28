@@ -56,13 +56,20 @@ export const changeNotificationStatus = async (req, res) => {
 export const changeLanguage = async (req, res) => {
     try {
         const { id } = req.user;
-        const { language } = req.body;
+        const rawLanguage = req.body?.language || req.body?.lang || req.query?.language || req.query?.lang || 'en';
+        const language = String(rawLanguage).toLowerCase();
         const allowedLanguages = ['en', 'de', 'it', 'fr'];
         if (!allowedLanguages.includes(language)) {
             return handleError(res, 400, getMessage('en', variableTypes.INVALID_LANGUAGE_CODE));
         }
         await updateUsersProfile({ language }, id);
-        return handleSuccess(res, 200, getMessage(language, variableTypes.LANGUAGE_UPDATED_SUCCESSFULLY));
+        return handleSuccess(
+            res,
+            200,
+            getMessage(language, variableTypes.LANGUAGE_UPDATED_SUCCESSFULLY),
+            { language },
+            language
+        );
     } catch (error) {
         return handleError(res, 500, getMessage('en', variableTypes.INTERNAL_SERVER_ERROR));
     }
